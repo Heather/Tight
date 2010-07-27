@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
+//Test Haskell FFI
 namespace Foo {
     class MainClass {
         [DllImport("ffi.dll", CallingConvention = CallingConvention.Cdecl)]
