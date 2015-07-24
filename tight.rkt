@@ -4,10 +4,12 @@
          racket/path
          racket/file)
 
-(: verbosity Real)
+(define-type Nat (U Zero Positive-Exact-Rational))
+
+(: verbosity Nat)
 (define verbosity 0)
 
-(: msg (-> Real String Any * Void))
+(: msg (-> Nat String Any * Void))
 (define (msg level fmt . vs)
   (when (>= verbosity level)
     (apply printf fmt vs)
@@ -34,10 +36,11 @@
   (msg 0 "What did you expect!"))
 
 (define (tight-init)
-  (: copy (-> String Void))
-  (define (copy path)
-    (define from (simplify-path (build-path "template" path)))
-    (define to   (simplify-path (build-path (current-directory) path)))
-    (msg 0 "copying: ~a" to) (mkdir to) (copy-directory/files from to))
-  (copy "index.html")
-  (msg 0 "Done"))
+  (let ([copy : (-> String Void)
+              (λ ([path : String])
+                (define from (simplify-path (build-path "template" path)))
+                (define to   (simplify-path (build-path (current-directory) path)))
+                (msg 0 "copying: ~a" to) (mkdir to) (copy-directory/files from to))])
+    
+    (copy "index.html")
+    (msg 0 "Done")))
