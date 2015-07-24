@@ -1,18 +1,23 @@
-#lang racket
+#lang typed/racket
 
-(require racket/base
+(require typed/racket/base
          racket/path
          racket/file)
 
+(: verbosity Real)
 (define verbosity 0)
+
+(: msg (-> Real String Any * Void))
 (define (msg level fmt . vs)
   (when (>= verbosity level)
     (apply printf fmt vs)
     (newline)))
+
+(: mkdir (-> Path Void))
 (define (mkdir path)
   (with-handlers ([exn:fail? (const (void))])
-    (define-values (base name dir?)(split-path path))
-    (make-directory* base)))
+    (define-values (base name dir?) (split-path path))
+    (when (path? base) (make-directory* base))))
 
 (module+ main
   (command-line
@@ -29,6 +34,7 @@
   (msg 0 "What did you expect!"))
 
 (define (tight-init)
+  (: copy (-> String Void))
   (define (copy path)
     (define from (simplify-path (build-path "template" path)))
     (define to   (simplify-path (build-path (current-directory) path)))
