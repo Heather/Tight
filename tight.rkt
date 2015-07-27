@@ -4,6 +4,13 @@
          racket/path
          racket/file)
 
+(require/typed
+  ffi/unsafe
+  [#:opaque CPointer cpointer?]  ; includes Bytes and other things that can be used as cpointers
+  [#:opaque CType ctype?])
+
+; (ffi-lib ffi.dll)
+
 (define-type Nat (U Zero Positive-Exact-Rational))
 
 (: verbosity Nat)
@@ -41,6 +48,6 @@
                 (define from (simplify-path (build-path "template" path)))
                 (define to   (simplify-path (build-path (current-directory) path)))
                 (msg 0 "copying: ~a" to) (mkdir to) (copy-directory/files from to))])
-    
+
     (copy "index.html")
     (msg 0 "Done")))
