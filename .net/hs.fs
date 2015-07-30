@@ -19,7 +19,7 @@ hs_init(IntPtr.Zero, IntPtr.Zero)
 
 try
     printfn "Calling to Haskell..."
-    let result = foo("C#")
+    let result = foo("F#")
     printfn "Got result: %d" result
 with
 | _ as ex -> printfn "Error: %s" ex.Message
