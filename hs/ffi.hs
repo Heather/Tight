@@ -1,6 +1,6 @@
 {-# LANGUAGE
-    OverloadedStrings
-  , UnicodeSyntax
+    UnicodeSyntax
+  , ForeignFunctionInterface
   #-}
 
 module Foo where
