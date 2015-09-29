@@ -1,12 +1,16 @@
 @echo off
 
-echo HS
-ghc -O2 --make -no-hs-main -shared -o ffi.dll hs/ffi.hs
-:: -dynamic
+echo Rust
+pushd rs
+cargo build
+popd
+cp -rf rs/target/debug/rs.dll .
+
+echo Haskell
+ghc -O2 --make -no-hs-main -shared -o ffi.dll hs/ffi.hs -L. -lrs
 
 echo .NET
 rm -rf .net/hs.exe
-
 pushd .net
 set scs="C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe"
 ::%scs% -unsafe hs.cs"
@@ -16,8 +20,9 @@ popd
 
 set LD_LIBRARY_PATH=. && ".net/hs.exe"
 
-echo RKT
-::raco exe tight.rkt
+::TODO
+:: echo Racket
+:: raco exe rkt/tight.rkt
 
 echo Done
 

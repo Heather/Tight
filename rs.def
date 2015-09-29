@@ -1,0 +1,3 @@
+LIBRARY rs
+EXPORTS
+  rust_hello

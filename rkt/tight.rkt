@@ -6,7 +6,7 @@
 
 (require/typed
   ffi/unsafe
-  [#:opaque CPointer cpointer?]  ; includes Bytes and other things that can be used as cpointers
+  [#:opaque CPointer cpointer?]
   [#:opaque CType ctype?])
 
 ; (ffi-lib ffi.dll)
