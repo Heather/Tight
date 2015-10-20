@@ -9,9 +9,7 @@ import Foreign.C.String
 import Foreign.C.Types
 
 foreign import ccall unsafe "rust_hello" rust_hello :: CInt → IO CInt
-
-foreign export ccall
-  foo ∷ CString → IO CInt
+foreign export ccall foo ∷ CString → IO CInt
 
 foo ∷ CString → IO CInt
 foo c_str = do
