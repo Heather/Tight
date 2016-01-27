@@ -5,3 +5,4 @@
 *.o
 *.h
 *.hi
+/rs/target/

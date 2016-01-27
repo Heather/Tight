@@ -20,10 +20,6 @@ popd
 
 set LD_LIBRARY_PATH=. && ".net/hs.exe"
 
-::TODO
-:: echo Racket
-:: raco exe rkt/tight.rkt
-
 echo Done
 
 :End

@@ -1,26 +1,18 @@
-language: c
+language: rust
 
 notifications:
   irc: "chat.freenode.net#Heather"
   email: false
 
-env:
-  global:
-    - RACKET_DIR=~/racket
-  matrix:
-    - RACKET_VERSION=6.1.1
-    - RACKET_VERSION=HEAD
+rust:
+  - stable
+  - beta
+  - nightly
 
-before_install:
-  - git clone https://github.com/greghendershott/travis-racket.git
-  - cat travis-racket/install-racket.sh | bash # pipe to bash not sh!
-  - export PATH="${RACKET_DIR}/bin:${PATH}" #install-racket.sh can't set for us
-  - sudo apt-get update # Is this actually needed??
+matrix:
+  allow_failures:
+    - rust: stable
+    - rust: beta
 
 script:
- - raco exe -v rkt/tight.rkt
-
-after_script:
- - ./tight --help
- - ./tight --init
- - ./tight
+  - cd rs && cargo build
